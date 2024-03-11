@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
-namespace dotnetmastery8net.Models
 
+namespace RazorDotnetMastery.Models
 {
     public class Category
     {
@@ -9,7 +9,7 @@ namespace dotnetmastery8net.Models
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
-        [Range(0, 100,ErrorMessage ="In range(0, 100)")]
+        [Range(0, 100, ErrorMessage = "In range(0, 100)")]
         public int DisplayOrder { get; set; }
 
 
