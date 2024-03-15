@@ -4,10 +4,8 @@ namespace dotnetmastery8net.Models
 {
     public class ApplicationDbContext:DbContext
     {
-
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
+        protected ApplicationDbContext()
         {
-
         }
 
         public DbSet<Category> Categories { get; set; }
