@@ -1,38 +1,37 @@
-﻿using APi.Abstractions;
+﻿using Api.Abstractions;
+using APi.Abstractions;
 using Domain.Models;
 using dotnetmastery8net.Infrastructure;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Infrastructure.Repositories
 {
-    public class CategoryRepository : ICategoryRepository
+    public class CategoryRepository : Repository<Category>, ICategoryRepository
     {
-        public readonly ApplicationDbContext _context;
-
-        public CategoryRepository(ApplicationDbContext context)
+        private ApplicationDbContext _db;
+        public CategoryRepository(ApplicationDbContext db) : base(db)
         {
-            _context = context;
+            _db = db;
         }
 
-        public void Add(Category category)
+
+
+        public void Update(Category obj)
         {
-            _context.Categories.Add(category);
-            _context.SaveChanges();
+            _db.Categories.Update(obj);
         }
 
-        public List<Category> AllCategories()
+        public void Save()
         {
-            throw new NotImplementedException();
-        }
-
-        public Category GetById(string Id)
-        {
-            throw new NotImplementedException();
+            _db.SaveChanges();
         }
     }
+
 }

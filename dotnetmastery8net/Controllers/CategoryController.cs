@@ -12,9 +12,9 @@ namespace App.Controllers
     public class CategoryController : Controller
     {
 
-        public CategoryService _CategoryService;
+        public ICategoryService _CategoryService;
 
-        public CategoryController(CategoryService categoryService)
+        public CategoryController(ICategoryService categoryService)
         {
             _CategoryService = categoryService;
         }
@@ -50,16 +50,16 @@ namespace App.Controllers
         }
         public IActionResult Edit(int? id)
         {
-            if (id==null&&id==0)
+            if (id == null && id == 0)
             {
                 return NotFound();
             }
-            Category? category = _context.Categories.Find(id);
+            Category? category = _CategoryService.GetCategory((int)id!);
 
-            if (category==null)
+            if (category == null)
             {
                 return NotFound();
-            }    
+            }
             return View(category);
         }
         [HttpPost]
@@ -72,9 +72,8 @@ namespace App.Controllers
             }
             if (ModelState.IsValid)
             {
-                TempData["succes"] = "Category Edited!";
-                _context.Categories.Update(obj);
-                _context.SaveChanges();
+
+                 _CategoryService.UpdateCategory(obj);
                 return RedirectToAction("Index", "Category");
             }
 
@@ -88,7 +87,7 @@ namespace App.Controllers
             {
                 return NotFound();
             }
-            Category? category = _context.Categories.Find(id);
+            Category? category = _CategoryService.GetCategory((int)id!);
 
             if (category == null)
             {
@@ -96,11 +95,11 @@ namespace App.Controllers
             }
             return View(category);
         }
-        [HttpPost,ActionName("Delete")]
+        [HttpPost, ActionName("Delete")]
 
         public IActionResult DeletePost(int? id)
         {
-            Category finded = _context.Categories.Find(id);
+            Category finded = _CategoryService.GetCategory((int)id!);
             if (finded == null)
             {
                 return NotFound();
@@ -110,12 +109,11 @@ namespace App.Controllers
 
             TempData["succes"] = "Category Deleted!";
 
-            _context.Categories.Remove(finded);
-                _context.SaveChanges();
-                return RedirectToAction("Index", "Category");
-            
+            _CategoryService.DeleteCategory(finded.Id);
+            return RedirectToAction("Index", "Category");
 
-          
+
+
         }
     }
 }

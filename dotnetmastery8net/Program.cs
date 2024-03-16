@@ -1,11 +1,18 @@
- 
+
+using APi.Abstractions;
+using APi.Services;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddScoped<ICategoryService,CategoryService>();
+builder.Services.AddScoped<ICategoryRepository,CategoryRepository>();
+builder.Services.AddInfrastructureServices(builder.Configuration);
 
 
 var app = builder.Build();

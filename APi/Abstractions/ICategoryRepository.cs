@@ -1,4 +1,5 @@
-﻿using Domain.Models;
+﻿using Api.Abstractions;
+using Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,9 @@ using System.Threading.Tasks;
 
 namespace APi.Abstractions
 {
-    public interface ICategoryRepository
+    public interface ICategoryRepository : IRepository<Category>
     {
-        public List<Category> AllCategories();
-        public Category GetById(string Id);
-        public void Add(Category category);
-
-        
+        void Update(Category obj);
+        void Save();
     }
 }
