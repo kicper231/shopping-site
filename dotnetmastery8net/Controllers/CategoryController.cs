@@ -1,21 +1,27 @@
-﻿using dotnetmastery8net.Models;
+﻿
+using APi.Abstractions;
+using APi.Services;
+using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NuGet.Protocol.Plugins;
 
-namespace dotnetmastery8net.Controllers
+namespace App.Controllers
 {
+    
     public class CategoryController : Controller
     {
 
-        public  ApplicationDbContext _context { get; set; }
-        public CategoryController(ApplicationDbContext context)
+        public CategoryService _CategoryService;
+
+        public CategoryController(CategoryService categoryService)
         {
-            _context = context;
+            _CategoryService = categoryService;
         }
 
         public IActionResult Index()
         {
-          List<Category> allcategories= _context.Categories.ToList();
+            List<Category> allcategories = _CategoryService.GetAllCategories();
             return View(allcategories);
         }
 
@@ -33,9 +39,10 @@ namespace dotnetmastery8net.Controllers
             }
             if (ModelState.IsValid)
             {
+                
                 TempData["succes"] = "Category Created!";
-                _context.Categories.Add(obj);
-                _context.SaveChanges();
+                _CategoryService.AddCategory(obj);
+              
                 return RedirectToAction("Index", "Category");
             }
 

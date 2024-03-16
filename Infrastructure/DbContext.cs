@@ -1,10 +1,12 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿
+using Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace dotnetmastery8net.Models
+namespace dotnetmastery8net.Infrastructure
 {
     public class ApplicationDbContext:DbContext
     {
-        protected ApplicationDbContext()
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
 

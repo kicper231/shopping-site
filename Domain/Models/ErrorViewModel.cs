@@ -1,4 +1,4 @@
-namespace dotnetmastery8net.Models
+namespace Domain.Models
 {
     public class ErrorViewModel
     {
